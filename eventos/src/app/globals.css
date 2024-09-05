@@ -105,3 +105,42 @@ a {
     color-scheme: dark;
   }
 }
+/* src/app/globals.css */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+.logo img {
+  height: 50px;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  margin-top: auto;
+}
+

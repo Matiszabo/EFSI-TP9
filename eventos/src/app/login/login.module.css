@@ -1,62 +1,56 @@
 .container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    background-color: var(--form-background);
+  }
+  
+  .form {
     max-width: 400px;
-    margin: 5rem auto;
+    width: 100%;
     padding: 2rem;
-    background: #fff;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--form-background);
   }
   
   .title {
-    margin-bottom: 3rem; 
+    margin-bottom: 2rem;
     font-size: 2rem;
-    color: #333;
-  }
-  
-  .formGroup {
-    margin-bottom: 1.5rem;
-    width: 100%;
+    text-align: center;
+    color: var(--text-primary);
   }
   
   .label {
     display: block;
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    margin-bottom: 0.75rem;
+    color: var(--text-primary);
   }
   
   .input {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 1rem;
+    background-color: var(--input-background);
+    color: var(--text-primary);
   }
   
   .button {
+    width: 100%;
     padding: 0.75rem;
-    background-color: #333;
-    color: white;
     border: none;
     border-radius: var(--border-radius);
+    background-color: var(--button-background);
+    color: var(--button-text);
     cursor: pointer;
-    font-size: 1rem;
-    width: 100%;
+    transition: background-color 0.3s;
   }
   
   .button:hover {
-    background-color: #555;
-  }
-  
-  .registerLink {
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  
-  .registerLink a {
-    color: #333;
-    text-decoration: underline;
+    background-color: var(--button-hover-background);
   }
   

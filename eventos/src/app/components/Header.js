@@ -1,11 +1,11 @@
-// src/app/components/Header.js
+
 "use client";
 
 import { useState } from 'react';
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const username = "Juan"; // Simulación de usuario logueado
+  const username = "Juan"; 
 
   return (
     <header style={styles.header}>

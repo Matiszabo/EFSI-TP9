@@ -1,4 +1,3 @@
-// src/app/page.js
 export default function HomePage() {
     return (
       <div style={styles.container}>

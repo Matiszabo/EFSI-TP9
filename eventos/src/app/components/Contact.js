@@ -1,4 +1,3 @@
-// src/app/components/Contact.js
 export default function Contact() {
     return (
       <div>

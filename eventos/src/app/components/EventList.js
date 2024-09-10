@@ -1,5 +1,4 @@
-// src/app/components/EventsList.js
-export default function EventsList() {
+export default function EventList() {
     return (
       <div>
         <h1>Listado de Eventos</h1>

@@ -1,15 +1,13 @@
-
-
+import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import './globals.css';
 
 export const metadata = {
   title: 'Eventos',
-  description: 'Aplicación para navegar entre diferentes eventos',
+  description: 'Aplicación para gestionar eventos',
 };
 
-export default function Layout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>

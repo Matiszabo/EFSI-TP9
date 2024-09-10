@@ -94,6 +94,7 @@ html, body {
 
 main {
   flex: 1;
+  padding-bottom: 3rem; 
 }
 
 body {
@@ -115,12 +116,6 @@ a {
   html {
     color-scheme: dark;
   }
-}
-/* src/app/globals.css */
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 header {
@@ -154,4 +149,3 @@ footer {
   color: white;
   margin-top: auto;
 }
-

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+.container {
+    padding: 1rem;
+    background-color: #f5f5dc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.heading {
+    color: #6f4c3e;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.eventList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.eventItem {
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.3rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    text-align: left;
+    background-color: #a89f91;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.2;
+}
+
+.eventButton {
+    background-color: #6f4c3e;
+    color: #ffffff;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.eventButton:hover {
+    background-color: #8b5a2b;
+}
+
+.loading, .error {
+    color: #6f4c3e;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+    font-family: 'Roboto', sans-serif;
+}

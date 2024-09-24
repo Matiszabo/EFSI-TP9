@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #f5f5dc;
+}
+
+.detalleEvento {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: left;
+}
+
+.h3 {
+    font-size: 2rem;
+    color: #6f4c3e;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.li {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #d1c6b3;
+    padding-bottom: 10px;
+    color: #6f4c3e;
+}
+
+.li:last-child {
+    border-bottom: none;
+}
+
+.btnBack {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #6f4c3e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: fit-content;
+}
+
+.btnBack:hover {
+    background-color: #8b5a2b;
+}

@@ -1,0 +1,130 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f5f5dc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(165, 42, 42, 0.1);
+}
+
+.navPills {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.navItem {
+  flex: 1;
+}
+
+.navLink {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: #8b4513;
+  text-decoration: none;
+  font-size: 16px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.navLinkActive {
+  color: #654321;
+  border-bottom: 2px solid #654321;
+}
+
+.tabContent {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #8b4513;
+}
+
+.formControl {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a52a2a;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.btnPrimary {
+  background-color: #8b4513;
+  border: none;
+  color: #f5f5dc;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btnPrimary:hover {
+  background-color: #654321;
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: #f5f5dc;
+  border: 1px solid #a52a2a;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(165, 42, 42, 0.1);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+}
+
+.socialButton:hover {
+  background-color: #f0e68c;
+  box-shadow: 0 4px 8px rgba(165, 42, 42, 0.2);
+}
+
+.socialButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.textCenter {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  color: #8b4513;
+}

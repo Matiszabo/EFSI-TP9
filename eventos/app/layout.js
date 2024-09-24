@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               <div className={styles.logo}>
               <Link href="/">
               <Image 
-                src="/logo.png"  // Corregido: Ruta absoluta desde public
+                src="/logo.png" 
                 alt="Logo de Eventos" 
                 width={50} 
                 height={50}
@@ -63,11 +63,6 @@ export default function RootLayout({ children }) {
                 {user ? (
                   <>
                     <span className={styles.userInfo}>
-                      <img 
-                        src={user.imageUrl ? user.imageUrl : "/img/person_28dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"} 
-                        alt={user.name} 
-                        className={styles.userImage}
-                      />
                       <span className={styles.userName}>{user.name}</span>
                     </span>
                     <button className={styles.logoutButton} onClick={handleLogout}>

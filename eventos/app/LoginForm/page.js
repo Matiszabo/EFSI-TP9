@@ -12,7 +12,8 @@ export default function LoginForm() {
   
   const [registerName, setRegisterName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
-
+  const [registerPassword, setRegisterPassword] = useState('');
+  
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -20,18 +21,48 @@ export default function LoginForm() {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     
-    const user = {
-      name: registerName, 
-      email: registerEmail, 
-    };
+    const loginEmail = document.getElementById('loginEmail').value;
+    const loginPassword = document.getElementById('loginPassword').value;
     
-    localStorage.setItem('user', JSON.stringify(user));
-    setUser(user);
-    router.push('/');
+    // Obtener los usuarios registrados del localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Buscar si existe un usuario con el mismo email y contraseña
+    const foundUser = users.find(user => user.email === loginEmail && user.password === loginPassword);
+    
+    if (foundUser) {
+      setUser(foundUser);
+      router.push('/'); // Redirigir al inicio
+    } else {
+      alert('Usuario o contraseña incorrectos.');
+    }
   };
 
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
+    
+    // Crear un nuevo usuario
+    const newUser = {
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+    };
+    
+    // Obtener los usuarios ya registrados del localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+    // Comprobar si el email ya está registrado
+    const isEmailRegistered = users.some(user => user.email === registerEmail);
+    
+    if (isEmailRegistered) {
+      alert('Este email ya está registrado.');
+    } else {
+      // Guardar el nuevo usuario en localStorage
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      setUser(newUser);
+      router.push('/');
+    }
   };
 
   return (
@@ -65,7 +96,7 @@ export default function LoginForm() {
         {activeTab === 'login' && (
           <form onSubmit={handleLoginSubmit} className={styles.form}>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor="loginEmail">Email or username</label>
+              <label className={styles.formLabel} htmlFor="loginEmail">Email</label>
               <input type="email" id="loginEmail" className={styles.formControl} required />
             </div>
             <div className={styles.formGroup}>
@@ -85,12 +116,9 @@ export default function LoginForm() {
                 id="registerName"
                 className={styles.formControl}
                 value={registerName}
-                onChange={(e) => setRegisterName(e.target.value)} // Captura el nombre
+                onChange={(e) => setRegisterName(e.target.value)}
+                required
               />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor="registerUsername">Username</label>
-              <input type="text" id="registerUsername" className={styles.formControl} />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="registerEmail">Email</label>
@@ -99,22 +127,20 @@ export default function LoginForm() {
                 id="registerEmail"
                 className={styles.formControl}
                 value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)} // Captura el email
+                onChange={(e) => setRegisterEmail(e.target.value)}
+                required
               />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="registerPassword">Password</label>
-              <input type="password" id="registerPassword" className={styles.formControl} />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor="registerRepeatPassword">Repeat password</label>
-              <input type="password" id="registerRepeatPassword" className={styles.formControl} />
-            </div>
-            <div className={styles.checkboxGroup}>
-              <input className={styles.checkbox} type="checkbox" id="registerCheck" defaultChecked />
-              <label className={styles.checkboxLabel} htmlFor="registerCheck">
-                I have read and agree to the terms
-              </label>
+              <input
+                type="password"
+                id="registerPassword"
+                className={styles.formControl}
+                value={registerPassword}
+                onChange={(e) => setRegisterPassword(e.target.value)}
+                required
+              />
             </div>
             <button type="submit" className={styles.btnPrimary}>Sign up</button>
           </form>

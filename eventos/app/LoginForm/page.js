@@ -18,6 +18,11 @@ export default function LoginForm() {
     setActiveTab(tab);
   };
 
+  // Genera un token simple (puedes usar JWT o una mejor opción en producción)
+  const generateToken = (user) => {
+    return btoa(`${user.email}:${new Date().getTime()}`);
+  };
+
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     
@@ -31,6 +36,8 @@ export default function LoginForm() {
     const foundUser = users.find(user => user.email === loginEmail && user.password === loginPassword);
     
     if (foundUser) {
+      const token = generateToken(foundUser);
+      localStorage.setItem('token', token);  // Guardar el token
       setUser(foundUser);
       router.push('/'); // Redirigir al inicio
     } else {
@@ -60,6 +67,8 @@ export default function LoginForm() {
       // Guardar el nuevo usuario en localStorage
       users.push(newUser);
       localStorage.setItem('users', JSON.stringify(users));
+      const token = generateToken(newUser);
+      localStorage.setItem('token', token);  // Guardar el token
       setUser(newUser);
       router.push('/');
     }

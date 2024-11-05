@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 import styles from './Home.module.css';
-import PrivateRoute from "../Components/CarpetasPrivadas/page.js"; 
+import PrivateRoute from "../Components/CarpetaPrivada/page.js"; 
 
 function ListadoEvents() {
     const [loading, setLoading] = useState(false);

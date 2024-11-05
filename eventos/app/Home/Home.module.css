@@ -3,16 +3,19 @@
 .container {
     padding: 1rem;
     background-color: #f5f5dc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #8b5e3c;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     font-family: 'Roboto', sans-serif;
+    min-height: 75vh;
 }
 
 .heading {
     color: #6f4c3e;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
     font-family: 'Open Sans', sans-serif;
+    text-align: center;
 }
 
 .eventList {
@@ -20,45 +23,60 @@
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .eventItem {
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.3rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+    background-color: #603d28;
+    border: 1px solid #8b5e3c;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
     text-align: left;
-    background-color: #a89f91;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-family: 'Open Sans', sans-serif;
-    font-size: 0.875rem;
-    line-height: 1.2;
+    font-size: 1rem;
+}
+
+.eventItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.eventItem h1 {
+    color: #f5e0c3;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.eventItem p {
+    color: #f5e0c3;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
 }
 
 .eventButton {
-    background-color: #6f4c3e;
-    color: #ffffff;
+    background-color: #8b5e3c;
+    color: #f5e0c3;
     border: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 .eventButton:hover {
-    background-color: #8b5a2b;
+    background-color: #a37954;
 }
 
-.loading, .error {
-    color: #6f4c3e;
-    font-size: 1rem;
+.loading,
+.error {
+    color: #f5e0c3;
+    font-size: 1.2rem;
     text-align: center;
     margin-top: 2rem;
     font-family: 'Roboto', sans-serif;

@@ -4,77 +4,71 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './LoginForm.module.css';
 import { UserContext } from '../Components/UserContext/UserContext';
-
+import Footer from '../Components/Footer/index'
+import  axios from "axios";
 export default function LoginForm() {
   const [activeTab, setActiveTab] = useState('login');
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);  
+  const [error, setError] = useState(null);
   const router = useRouter();
-  
-  const [registerName, setRegisterName] = useState('');
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
-  
-  const handleTabChange = (tab) => {
+ const [username, setUsername]= useState("");
+ const [password, setPassword]= useState("");
+ const [first_name, setFirst_name]= useState("");
+ const [last_name, setLast_name]= useState("");
+  const handleTabChange = async(tab) => {
     setActiveTab(tab);
+    setError(null); 
   };
+  const handleRegister = async(e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/register", {
+        first_name, last_name, username, password 
+      });
+      console.log("response status ", response.status)
+      if (response.status === 201) {
+        const { user, token } = response.data;
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", token);
+        router.push(`/`);
+      } 
+      if(response.status === 400){
+        alert("La contraseña debe tener al menos 8 dígitos");
 
-  // Genera un token simple (puedes usar JWT o una mejor opción en producción)
-  const generateToken = (user) => {
-    return btoa(`${user.email}:${new Date().getTime()}`);
-  };
-
-  const handleLoginSubmit = (event) => {
-    event.preventDefault();
-    
-    const loginEmail = document.getElementById('loginEmail').value;
-    const loginPassword = document.getElementById('loginPassword').value;
-    
-    // Obtener los usuarios registrados del localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-
-    // Buscar si existe un usuario con el mismo email y contraseña
-    const foundUser = users.find(user => user.email === loginEmail && user.password === loginPassword);
-    
-    if (foundUser) {
-      const token = generateToken(foundUser);
-      localStorage.setItem('token', token);  // Guardar el token
-      setUser(foundUser);
-      router.push('/'); // Redirigir al inicio
-    } else {
-      alert('Usuario o contraseña incorrectos.');
+      }
+      else {
+        setError(response.data.message || "Error en el register");
+      }
+    } catch (error) {
+      console.error("Error during register:", error);
+      setError("Error al registrarse");
     }
   };
-
-  const handleRegisterSubmit = (event) => {
-    event.preventDefault();
-    
-    // Crear un nuevo usuario
-    const newUser = {
-      name: registerName,
-      email: registerEmail,
-      password: registerPassword,
-    };
-    
-    // Obtener los usuarios ya registrados del localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    // Comprobar si el email ya está registrado
-    const isEmailRegistered = users.some(user => user.email === registerEmail);
-    
-    if (isEmailRegistered) {
-      alert('Este email ya está registrado.');
-    } else {
-      // Guardar el nuevo usuario en localStorage
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      const token = generateToken(newUser);
-      localStorage.setItem('token', token);  // Guardar el token
-      setUser(newUser);
-      router.push('/');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/login", {
+        username, password
+      });
+      console.log(user);
+      if (response.status === 200) {
+        const { user, token } = response.data;
+        localStorage.setItem("user", JSON.stringify(user)); // Guarda el objeto usuario completo
+        localStorage.setItem("token", token);
+        router.push(`/`);
+      } else {
+        setError(response.data.message || "Error en el login");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("Error al iniciar sesión");
     }
   };
+  
 
   return (
+    <>
+    <div className={styles.body}>
     <div className={styles.container}>
       <ul className={styles.navPills} role="tablist">
         <li className={styles.navItem} role="presentation">
@@ -103,58 +97,62 @@ export default function LoginForm() {
 
       <div className={styles.tabContent}>
         {activeTab === 'login' && (
-          <form onSubmit={handleLoginSubmit} className={styles.form}>
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor="loginEmail">Email</label>
-              <input type="email" id="loginEmail" className={styles.formControl} required />
+              <label className={styles.formLabel} htmlFor="loginEmail">Username</label>
+              <input type="username" id="loginEmail" className={styles.formControl} required 
+               onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="loginPassword">Password</label>
-              <input type="password" id="loginPassword" className={styles.formControl} required />
+              <input type="password" id="loginPassword" className={styles.formControl} required 
+               onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <button type="submit" className={styles.btnPrimary}>Sign in</button>
           </form>
         )}
 
         {activeTab === 'register' && (
-          <form onSubmit={handleRegisterSubmit} className={styles.form}>
-            <div className={styles.formGroup}>
+              <form onSubmit={handleRegister} className={styles.form}>
+              <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="registerName">Name</label>
-              <input
-                type="text"
-                id="registerName"
-                className={styles.formControl}
-                value={registerName}
-                onChange={(e) => setRegisterName(e.target.value)}
-                required
+              <input type="text" id="registerName" className={styles.formControl} 
+               onChange={(e) => setFirst_name(e.target.value)}
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor="registerEmail">Email</label>
-              <input
-                type="email"
-                id="registerEmail"
-                className={styles.formControl}
-                value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-                required
+              <label className={styles.formLabel} htmlFor="registerName">Last name</label>
+              <input type="text" id="lastName" className={styles.formControl} 
+               onChange={(e) => setLast_name(e.target.value)}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel} htmlFor="registerUsername">Username</label>
+              <input type="text" id="registerUsername" className={styles.formControl} 
+               onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="registerPassword">Password</label>
-              <input
-                type="password"
-                id="registerPassword"
-                className={styles.formControl}
-                value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
-                required
+              <input type="password" id="registerPassword" className={styles.formControl} 
+               onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+            <div className={styles.checkboxGroup}>
+              <input className={styles.checkbox} type="checkbox" id="registerCheck" defaultChecked />
+              <label className={styles.checkboxLabel} htmlFor="registerCheck">
+                I have read and agree to the terms
+              </label>
             </div>
             <button type="submit" className={styles.btnPrimary}>Sign up</button>
           </form>
         )}
       </div>
     </div>
+    <Footer/>
+    </div>
+    </>
   );
 }

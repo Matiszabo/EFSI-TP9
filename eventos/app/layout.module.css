@@ -1,17 +1,30 @@
-.body{
-  font-family: 'Playfair Display'; 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+.body {
+  font-family: 'Playfair Display', serif;
 }
 
 .header {
-  background-color: #4b2e1e; 
-  color: #f5f5dc; 
+  background-color: #6e4b34; /* Marrón oscuro */
+  color: #ffffff;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Playfair Display'; 
+  font-family: 'Playfair Display', serif;
   margin-top: 0;
+}
+
+.logo a {
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.logo a:hover {
+  color: #b08968; /* Marrón claro */
 }
 
 .nav ul {
@@ -23,14 +36,14 @@
 }
 
 .nav ul li a {
-  color: #f5f5dc;
+  color: #ffffff;
   text-decoration: none;
   font-size: 18px;
   transition: color 0.3s;
 }
 
 .nav ul li a:hover {
-  color: #7f5539;
+  color: #b08968; /* Marrón claro */
 }
 
 .userSection {
@@ -52,30 +65,30 @@
 
 .userName {
   font-size: 16px;
-  color: #e5d5c5;
+  color: #f0f0f0;
 }
 
 .logoutButton {
-  background: linear-gradient(145deg, #7f5539, #4b2e1e);
-  border: 2px solid #4b2e1e;
+  background: linear-gradient(145deg, #8b5e3c, #6e4b34); /* Gradiente marrón */
+  border: 2px solid #6e4b34; /* Borde marrón oscuro */
   padding: 6px 10px;
   margin-left: 20px;
   border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
   transition: background 0.3s, border-color 0.3s;
-  color: #f5f5dc;
+  color: #ffffff;
   font-family: 'Playfair Display', serif;
 }
 
 .logoutButton:hover {
-  background: linear-gradient(145deg, #4b2e1e, #7f5539);
-  border-color: #7f5539;
+  background: linear-gradient(145deg, #6e4b34, #8b5e3c); /* Invertir gradiente en hover */
+  border-color: #8b5e3c;
 }
 
 .loginLink {
-  background: linear-gradient(145deg, #7f5539, #4b2e1e);
-  border: 2px solid #4b2e1e;
+  background: linear-gradient(145deg, #8b5e3c, #6e4b34);
+  border: 2px solid #6e4b34;
   padding: 6px 10px;
   margin-left: 20px;
   border-radius: 6px;
@@ -83,11 +96,11 @@
   cursor: pointer;
   text-decoration: none;
   transition: background 0.3s, border-color 0.3s;
-  color: #f5f5dc;
+  color: #ffffff;
   font-family: 'Playfair Display', serif;
 }
 
 .loginLink:hover {
-  background: linear-gradient(145deg, #4b2e1e, #7f5539);
-  border-color: #7f5539;
+  background: linear-gradient(145deg, #6e4b34, #8b5e3c);
+  border-color: #8b5e3c;
 }

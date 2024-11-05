@@ -1,29 +1,35 @@
 .page {
-  --gray-rgb: 75, 46, 30;
+  --gray-rgb: 0, 0, 0;
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
 
-  --button-primary-hover: #7f5539;
-  --button-secondary-hover: #f5f5dc;
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
   align-items: center;
   justify-items: center;
-  min-height: 100svh;
+  min-height: 100vh;
   padding: 80px;
   gap: 64px;
   font-family: var(--font-geist-sans);
 }
 
+.mainContent {
+  flex: 1; /* Esto hará que la sección de los eventos ocupe todo el espacio disponible */
+  padding: 20px;
+  background-color: #fff9e6; 
+}
+
 @media (prefers-color-scheme: dark) {
   .page {
-    --gray-rgb: 255, 245, 220;
+    --gray-rgb: 255, 255, 255;
     --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
 
-    --button-primary-hover: #e5d5c5;
-    --button-secondary-hover: #4b2e1e;
+    --button-primary-hover: #ccc;
+    --button-secondary-hover: #1a1a1a;
   }
 }
 
@@ -93,6 +99,7 @@ a.secondary {
   grid-row-start: 3;
   display: flex;
   gap: 24px;
+  margin-top: auto; 
 }
 
 .footer a {
@@ -101,10 +108,12 @@ a.secondary {
   gap: 8px;
 }
 
+
 .footer img {
   flex-shrink: 0;
 }
 
+/* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
     background: var(--button-primary-hover);

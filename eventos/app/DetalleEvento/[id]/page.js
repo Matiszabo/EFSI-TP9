@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import styles from '../DetalleEvento.module.css'; 
+import styles from '../DetalleEvento.module.css';
 import Footer from '../../Components/Footer';
+
 export default function DetalleEvento({ params }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,17 +13,37 @@ export default function DetalleEvento({ params }) {
     const router = useRouter();
 
     const id = params.id;
+    let currentUser = null;
+
+    try {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            currentUser = JSON.parse(userData);
+        }
+    } catch (error) {
+        console.error("Error al analizar el usuario del localStorage:", error);
+    }
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/event/${id}`)
-            .then(response => {
-                setDetailEvent(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
+        if (id) {
+            axios.get(`http://localhost:3000/api/event/${id}`)
+                .then(response => {
+                    const eventData = response.data;
+                    if (eventData.isPrivate && (!currentUser || !eventData.allowedUsers.includes(currentUser.username))) {
+                        setError(new Error("No tienes permiso para ver este evento."));
+                    } else {
+                        setDetailEvent(eventData);
+                    }
+                    setLoading(false);
+                })
+                .catch(error => {
+                    setError(error);
+                    setLoading(false);
+                });
+        } else {
+            setError(new Error("ID de evento no proporcionado."));
+            setLoading(false);
+        }
     }, [id]);
 
     if (loading) {
@@ -40,27 +62,27 @@ export default function DetalleEvento({ params }) {
 
     return (
         <>
-        <div className={styles.container}>
-            <div className={styles.detalleEvento}>
-                {detailEvent && (
-                    <>
-                        <h3 className={styles.h3}>{detailEvent.name}</h3>
-                        <ul className={styles.ul}style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-                            <li className={styles.li}><strong>Hora de inicio:</strong> {formatStartDate(detailEvent.start_date)}</li>
-                            <li className={styles.li}><strong>Duración:</strong> {detailEvent.duration_in_minutes} minutos</li>
-                            <li className={styles.li}><strong>Descripción:</strong> {detailEvent.description}</li>
-                        </ul>
-                    </>
-                )}
-                <button
-                    className={styles.btnBack}
-                    onClick={() => router.push('/')}
-                >
-                    Volver
-                </button>
+            <div className={styles.container}>
+                <div className={styles.detalleEvento}>
+                    {detailEvent && (
+                        <>
+                            <h3 className={styles.h3}>{detailEvent.name}</h3>
+                            <ul className={styles.ul} style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+                                <li className={styles.li}><strong>Hora de inicio:</strong> {formatStartDate(detailEvent.start_date)}</li>
+                                <li className={styles.li}><strong>Duración:</strong> {detailEvent.duration_in_minutes} minutos</li>
+                                <li className={styles.li}><strong>Descripción:</strong> {detailEvent.description}</li>
+                            </ul>
+                        </>
+                    )}
+                    <button
+                        className={styles.btnBack}
+                        onClick={() => router.push('/')}
+                    >
+                        Volver
+                    </button>
+                </div>
             </div>
-        </div>
-        <Footer />
+            <Footer />
         </>
     );
 }

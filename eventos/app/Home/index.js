@@ -1,9 +1,8 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 import styles from './Home.module.css';
+import PrivateRoute from "../Components/CarpetasPrivadas/page.js"; 
 
 function ListadoEvents() {
     const [loading, setLoading] = useState(false);
@@ -36,19 +35,21 @@ function ListadoEvents() {
     }
 
     return (
-        <div className={styles.container}>
-            <h3 className={styles.heading}>Eventos</h3>
-            <ul className={styles.eventList}>
-                {events.map(event => (
-                    <li key={event.id} className={styles.eventItem}>
-                        <h1>{event.name} - {event.description} - {event.category_name}</h1>
-                        <button className={styles.eventButton} onClick={() => router.push(`/DetalleEvento/${event.id}`)}>
-                            Ver Detalles
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <PrivateRoute>
+            <div className={styles.container}>
+                <h3 className={styles.heading}>Eventos</h3>
+                <ul className={styles.eventList}>
+                    {events.map(event => (
+                        <li key={event.id} className={styles.eventItem}>
+                            <h1>{event.name} - {event.category_name}</h1>
+                            <button className={styles.eventButton} onClick={() => router.push(`/DetalleEvento/${event.id}`)}>
+                                Ver Detalles
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </PrivateRoute>
     );
 }
 

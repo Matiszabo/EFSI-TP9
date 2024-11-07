@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-//import styles from './CarpetaPrivadas.module.css';
+import styles from "@/app/Components/CarpetaPrivada/CarpetaPrivada.module.css"
 
 export default function PrivateRoute({ children }) {
   const router = useRouter();
@@ -12,9 +12,22 @@ export default function PrivateRoute({ children }) {
     setIsAuthenticated(!!token);
   }, []);
 
-  
-  if (isAuthenticated === null) {
-    return <div >Cargando...</div>;
+  if (isAuthenticated === false) {
+    return (
+      <div className={styles.restrictedAccess}>
+        <h2>Acceso restringido</h2>
+        <p>Por favor, inicia sesión para continuar.</p>
+        <button onClick={() => router.push("/LoginForm")} className={styles.loginButton}>
+          Ir a Login
+        </button>
+      </div>
+    );
   }
+
+  // Mientras se verifica la autenticación
+  if (isAuthenticated === null) {
+    return <div className={styles.loading}>Cargando...</div>;
+  }
+
   return children;
 }

@@ -5,6 +5,24 @@
   justify-content: center;
   height: 100vh;
   text-align: center;
+  background-color: #f7f7f7;
+  padding: 20px;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.restrictedAccess h2 {
+  font-size: 24px;
+  color: #603d28;
+  margin-bottom: 10px;
+}
+
+.restrictedAccess p {
+  font-size: 16px;
+  color: #555;
+  max-width: 400px;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .loginButton {
@@ -13,9 +31,14 @@
   font-size: 16px;
   cursor: pointer;
   background-color: #603d28;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: #845a3e;
 }
 
 .loading {
@@ -24,4 +47,7 @@
   justify-content: center;
   height: 100vh;
   font-size: 18px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
 }

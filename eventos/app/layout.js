@@ -13,29 +13,32 @@ export default function RootLayout({ children }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
+  // Cargar el usuario desde cookies o localStorage
   useEffect(() => {
-   const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        const userInfo = {
+        setUser({
           id: parsedUser.id,
           name: `${parsedUser.first_name} ${parsedUser.last_name}`,
-          username: parsedUser.username,
-          imageUrl: parsedUser.imageUrl || null,
-        };
-        setUser(userInfo);
+          username: parsedUser.username, // Solo se guarda el username
+        });
       } catch (error) {
         console.error("Error al parsear el usuario almacenado:", error);
       }
     }
     setLoading(false);
   }, []);
- 
+
   const handleLogout = () => {
-    localStorage.removeItem('user');  
+    localStorage.removeItem('user'); // Remueve el usuario del localStorage
     setUser(null);
-    router.push('/');  
+    router.push('/LoginForm'); 
+  };
+
+  const handleLogin = () => {
+    router.push('/LoginForm'); 
   };
 
   if (loading) {
@@ -49,7 +52,14 @@ export default function RootLayout({ children }) {
           <main className={styles.main}>
             <header className={styles.header}>
               <div className={styles.logo}>
-                <Link href="/">MiSitio</Link>
+                <Link href="/">
+                  <Image 
+                    src="/logo.png" 
+                    alt="Logo de Eventos" 
+                    width={50} 
+                    height={50}
+                  />
+                </Link>
               </div>
               <nav className={styles.nav}>
                 <ul>
@@ -58,25 +68,18 @@ export default function RootLayout({ children }) {
                 </ul>
               </nav>
               <div className={styles.userSection}>
-              {user ? (
-              <>
-                <span className={styles.user}>
-                  <img 
-                    src={user.imageUrl ? user.imageUrl : "/img/person_28dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"} 
-                    alt={user.name} 
-                    className={styles.userImage}
-                  />
-                  <span className={styles.userName}>{user.userName}</span>
-                </span>
-                <button className={styles.logoutButton} onClick={handleLogout}>
-                  Cerrar sesión
-                </button>
-              </>
-            ) : (
-              <Link href='/LoginForm' className={styles.loginLink}>
-                Iniciar sesión
-              </Link>
-            )}
+                {user ? (
+                  <div className={styles.userInfo}>
+                    <span className={styles.userName}>{user.username}</span>
+                    <button className={styles.logoutButton} onClick={handleLogout}>
+                      Cerrar sesión
+                    </button>
+                  </div>
+                ) : (
+                  <button className={styles.loginLink} onClick={handleLogin}>
+                    Iniciar sesión
+                  </button>
+                )}
               </div>
             </header>
             {children}
@@ -87,4 +90,3 @@ export default function RootLayout({ children }) {
     </UserProvider>
   );
 }
-  

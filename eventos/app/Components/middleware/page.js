@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
-  const isAuthRoute = ['/login', '/register'].includes(pathname); // Ajusta las rutas que no requieren autenticación
+  const isAuthRoute = ['/LoginForm'].includes(pathname); // Ajusta las rutas que no requieren autenticación
   const token = request.cookies.get('token')?.value;
 
   // Si el usuario no está autenticado y trata de acceder a una ruta protegida, redirigir a login

@@ -53,16 +53,18 @@ export default function RootLayout({ children }) {
         <body className={styles.body}>
           <main className={styles.main}>
             <header className={styles.header}>
+            <Link href="/">
               <Image 
                     src="/logo.png" 
                     alt="Logo de Eventos" 
                     width={50} 
                     height={50}
                   />
+             </Link>
               <nav className={styles.nav}>
                 <ul>
-                  {user?(<li><Link href="/Home">Home</Link></li>)
-                  :(<li><Link href="/LoginForm">Home</Link></li>)
+                  {user?(<li><Link href="/Eventos">Eventos</Link></li>)
+                  :(<li><Link href="/LoginForm">Eventos</Link></li>)
                   }
                   <li><Link href="/Contact">Contacto</Link></li>
                 </ul>

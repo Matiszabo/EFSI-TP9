@@ -5,7 +5,7 @@
 }
 
 .header {
-  background-color: #6e4b34; /* Marrón oscuro */
+  background-color: #6e4b34; 
   color: #ffffff;
   padding: 10px 20px;
   display: flex;
@@ -16,16 +16,6 @@
   margin-top: 0;
 }
 
-.logo a {
-  font-size: 24px;
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.logo a:hover {
-  color: #b08968; /* Marrón claro */
-}
 
 .nav ul {
   list-style: none;
@@ -43,7 +33,7 @@
 }
 
 .nav ul li a:hover {
-  color: #b08968; /* Marrón claro */
+  color: #b08968; 
 }
 
 .userSection {
@@ -53,8 +43,8 @@
 
 .userInfo {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: center;  /* Alinea la imagen y el nombre al centro de forma horizontal */
+  gap: 5px;  
 }
 
 .userImage {
@@ -69,8 +59,8 @@
 }
 
 .logoutButton {
-  background: linear-gradient(145deg, #8b5e3c, #6e4b34); /* Gradiente marrón */
-  border: 2px solid #6e4b34; /* Borde marrón oscuro */
+  background: linear-gradient(145deg, #8b5e3c, #6e4b34); 
+  border: 2px solid #6e4b34; 
   padding: 6px 10px;
   margin-left: 20px;
   border-radius: 6px;
@@ -82,7 +72,7 @@
 }
 
 .logoutButton:hover {
-  background: linear-gradient(145deg, #6e4b34, #8b5e3c); /* Invertir gradiente en hover */
+  background: linear-gradient(145deg, #6e4b34, #8b5e3c); 
   border-color: #8b5e3c;
 }
 

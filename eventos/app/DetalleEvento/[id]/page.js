@@ -76,7 +76,7 @@ export default function DetalleEvento({ params }) {
                     )}
                     <button
                         className={styles.btnBack}
-                        onClick={() => router.push('/')}
+                        onClick={() => router.push('/Home')}
                     >
                         Volver
                     </button>

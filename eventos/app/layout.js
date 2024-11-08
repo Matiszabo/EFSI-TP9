@@ -63,7 +63,7 @@ export default function RootLayout({ children }) {
              </Link>
               <nav className={styles.nav}>
                 <ul>
-                  {user?(<li><Link href="/Eventos">Eventos</Link></li>)
+                  {user?(<li><Link href="/Home">Eventos</Link></li>)
                   :(<li><Link href="/LoginForm">Eventos</Link></li>)
                   }
                   <li><Link href="/Contact">Contacto</Link></li>

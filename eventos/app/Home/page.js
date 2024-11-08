@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from 'next/navigation';
 import styles from './Home.module.css';
 import PrivateRoute from "../Components/CarpetaPrivada/page.js"; 
+import Footer from "../Components/Footer";
 
 function ListadoEvents() {
     const [loading, setLoading] = useState(false);
@@ -51,7 +52,9 @@ function ListadoEvents() {
                     ))}
                 </ul>
             </div>
+            <Footer/>
         </PrivateRoute>
+        
     );
 }
 

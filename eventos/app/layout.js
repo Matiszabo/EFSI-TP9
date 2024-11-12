@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './layout.module.css';
 import { UserContext } from './Components/UserContext/UserContext';
-import SomeComponent from './SomeComponent/SomeComponent'; 
 import Image from 'next/image';
 
 export default function RootLayout({ children }) {

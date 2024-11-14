@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import styles from '../DetalleEvento.module.css';
 import Footer from '../../Components/Footer';
+import PrivateRoute from "@/app/Components/CarpetaPrivada/page";
 
 export default function DetalleEvento({ params }) {
     const [loading, setLoading] = useState(true);
@@ -61,7 +62,7 @@ export default function DetalleEvento({ params }) {
     };
 
     return (
-        <>
+        <PrivateRoute>
             <div className={styles.container}>
                 <div className={styles.detalleEvento}>
                     {detailEvent && (
@@ -83,6 +84,6 @@ export default function DetalleEvento({ params }) {
                 </div>
             </div>
             <Footer />
-        </>
+        </PrivateRoute>
     );
 }

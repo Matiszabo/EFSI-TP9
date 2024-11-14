@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 export default function App() {
   const router = useRouter();
   const { user } = useContext(UserContext);
+
   const handleViewEvents = () => {
     if (user) {
       router.push('/Home'); 
@@ -20,14 +21,12 @@ export default function App() {
   return (
     <>
       <main className={styles.mainContent}>
-  <h1 className={styles.h1}>¡Hola,{user ? ` ${user.username}`: ''}! Bienvenido a tu espacio de eventos</h1>
-  <button onClick={handleViewEvents} className={styles.viewEventsButton}>
-    Ver eventos
-  </button>
-</main>
-
-
+        <h1 className={styles.h1}>¡Hola,{user ? ` ${user.username}`: ''}! Bienvenido a tu espacio de eventos</h1>
+        <button onClick={handleViewEvents} className={styles.viewEventsButton}>
+          Ver eventos
+        </button>
+      </main>
       <Footer />
-      </>
+    </>
   );
 }

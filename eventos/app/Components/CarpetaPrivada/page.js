@@ -1,33 +1,34 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from "@/app/Components/CarpetaPrivada/CarpetaPrivada.module.css"
+import { useRouter, usePathname } from 'next/navigation';
+import styles from "@/app/Components/CarpetaPrivada/CarpetaPrivada.module.css";
 
 export default function PrivateRoute({ children }) {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const pathname = usePathname();  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);  
+
+  const protectedRoutes = ['/Home', '/DetalleEvento'];
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-  }, []);
 
-  if (isAuthenticated === false) {
-    return (
-      <div className={styles.restrictedAccess}>
-        <h2>Acceso restringido</h2>
-        <p>Por favor, inicia sesión para continuar.</p>
-        <button onClick={() => router.push("/LoginForm")} className={styles.loginButton}>
-          Ir a Login
-        </button>
-      </div>
-    );
-  }
+    if (token) {
+      setIsAuthenticated(true); 
+    } else {
+      setIsAuthenticated(false); 
+    }
+  }, []);  
 
-  // Mientras se verifica la autenticación
-  if (isAuthenticated === null) {
+  useEffect(() => {
+    if (!isAuthenticated && protectedRoutes.some(route => pathname.startsWith(route))) {
+      router.push('/');  
+    }
+  }, [isAuthenticated, pathname, router]);
+
+  if (!isAuthenticated) {
     return <div className={styles.loading}>Cargando...</div>;
   }
 
-  return children;
+  return children;  
 }

@@ -1,54 +1,36 @@
 "use client";
 
-import React, { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
-import styles from "./LoginForm.module.css";
-import { UserContext } from "../Components/UserContext/UserContext";
-import Footer from "../Components/Footer/index";
+import React, { useState, useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from './LoginForm.module.css';
+import { UserContext } from '../Components/UserContext/UserContext';
+import Footer from '../Components/Footer/index';
 import axios from "axios";
 
 export default function LoginForm() {
-  const [activeTab, setActiveTab] = useState("login");
-  const { setUser } = useContext(UserContext);
+  const [activeTab, setActiveTab] = useState('login');
+  const { setUser } = useContext(UserContext);  
   const [error, setError] = useState(null);
   const router = useRouter();
-
-  // Estados de los campos del formulario
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
 
-  // Función para cambiar entre las pestañas de login y register
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setError(null);
+    setError(null); 
   };
 
-  // Validación de los campos del formulario
-  const validateForm = () => {
-    if (!username || !password) {
-      setError("Todos los campos son requeridos");
-      return false;
-    }
-    if (password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres");
-      return false;
-    }
-    return true;
-  };
-
-  // Manejo de registro
-  const handleRegister = async (e) => {
+  const handleRegister = async(e) => {
     e.preventDefault();
-    if (!validateForm()) return; // Validar el formulario antes de enviarlo
-
+    if (password.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:3000/api/user/register", {
-        first_name,
-        last_name,
-        username,
-        password,
+        first_name, last_name, username, password 
       });
 
       if (response.status === 201) {
@@ -62,19 +44,15 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.error("Error durante el registro:", error);
-      setError("Error al registrarse");
+      setError(error.response?.data?.message || "Error al registrarse");
     }
   };
 
-  // Manejo de inicio de sesión
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return; // Validar el formulario antes de enviarlo
-
     try {
       const response = await axios.post("http://localhost:3000/api/user/login", {
-        username,
-        password,
+        username, password
       });
 
       if (response.status === 200) {
@@ -84,11 +62,11 @@ export default function LoginForm() {
         setUser(user);
         router.push(`/`);
       } else {
-        setError(response.data.message || "Error en el inicio de sesión");
+        setError(response.data.message || "Error al iniciar sesión");
       }
     } catch (error) {
-      console.error("Error durante el inicio de sesión:", error);
-      setError("Error al iniciar sesión");
+      console.error("Error durante el login:", error);
+      setError(error.response?.data?.message || "Usuario o contraseña incorrectos");
     }
   };
 
@@ -99,26 +77,22 @@ export default function LoginForm() {
           <ul className={styles.navPills} role="tablist">
             <li className={styles.navItem} role="presentation">
               <a
-                className={`${styles.navLink} ${
-                  activeTab === "login" ? styles.navLinkActive : ""
-                }`}
-                href="#"
+                className={`${styles.navLink} ${activeTab === 'login' ? styles.navLinkActive : ''}`}
+                href='#'
                 role="tab"
-                aria-selected={activeTab === "login"}
-                onClick={() => handleTabChange("login")}
+                aria-selected={activeTab === 'login'}
+                onClick={() => handleTabChange('login')}
               >
                 Login
               </a>
             </li>
             <li className={styles.navItem} role="presentation">
               <a
-                className={`${styles.navLink} ${
-                  activeTab === "register" ? styles.navLinkActive : ""
-                }`}
-                href="#"
+                className={`${styles.navLink} ${activeTab === 'register' ? styles.navLinkActive : ''}`}
+                href='#'
                 role="tab"
-                aria-selected={activeTab === "register"}
-                onClick={() => handleTabChange("register")}
+                aria-selected={activeTab === 'register'}
+                onClick={() => handleTabChange('register')}
               >
                 Register
               </a>
@@ -126,106 +100,85 @@ export default function LoginForm() {
           </ul>
 
           <div className={styles.tabContent}>
-            {activeTab === "login" && (
-              <form onSubmit={handleLogin} className={styles.form}>
+            {error && <p className={styles.errorMessage}>{error}</p>} {/* Mensaje de error */}
+
+            {activeTab === 'login' && (
+              <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="loginUsername">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    id="loginUsername"
-                    className={styles.formControl}
-                    required
+                  <label className={styles.formLabel} htmlFor="loginEmail">Username</label>
+                  <input 
+                    type="text" 
+                    id="loginEmail" 
+                    className={styles.formControl} 
+                    required 
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="loginPassword">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="loginPassword"
-                    className={styles.formControl}
-                    required
+                  <label className={styles.formLabel} htmlFor="loginPassword">Password</label>
+                  <input 
+                    type="password" 
+                    id="loginPassword" 
+                    className={styles.formControl} 
+                    required 
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button type="submit" className={styles.btnPrimary}>
-                  Sign in
-                </button>
-                {error && <p className={styles.error}>{error}</p>}
+                <button type="submit" className={styles.btnPrimary}>Sign in</button>
               </form>
             )}
 
-            {activeTab === "register" && (
+            {activeTab === 'register' && (
               <form onSubmit={handleRegister} className={styles.form}>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerFirstName">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="registerFirstName"
-                    className={styles.formControl}
+                  <label className={styles.formLabel} htmlFor="registerName">Name</label>
+                  <input 
+                    type="text" 
+                    id="registerName" 
+                    className={styles.formControl} 
                     onChange={(e) => setFirst_name(e.target.value)}
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerLastName">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="registerLastName"
-                    className={styles.formControl}
+                  <label className={styles.formLabel} htmlFor="lastName">Last name</label>
+                  <input 
+                    type="text" 
+                    id="lastName" 
+                    className={styles.formControl} 
                     onChange={(e) => setLast_name(e.target.value)}
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerUsername">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    id="registerUsername"
-                    className={styles.formControl}
+                  <label className={styles.formLabel} htmlFor="registerUsername">Username</label>
+                  <input 
+                    type="text" 
+                    id="registerUsername" 
+                    className={styles.formControl} 
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerPassword">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="registerPassword"
-                    className={styles.formControl}
+                  <label className={styles.formLabel} htmlFor="registerPassword">Password</label>
+                  <input 
+                    type="password" 
+                    id="registerPassword" 
+                    className={styles.formControl} 
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className={styles.checkboxGroup}>
-                  <input
-                    className={styles.checkbox}
-                    type="checkbox"
-                    id="registerCheck"
-                    defaultChecked
-                  />
+                  <input className={styles.checkbox} type="checkbox" id="registerCheck" defaultChecked />
                   <label className={styles.checkboxLabel} htmlFor="registerCheck">
                     I have read and agree to the terms
                   </label>
                 </div>
-                <button type="submit" className={styles.btnPrimary}>
-                  Sign up
-                </button>
-                {error && <p className={styles.error}>{error}</p>}
+                <button type="submit" className={styles.btnPrimary}>Sign up</button>
               </form>
             )}
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

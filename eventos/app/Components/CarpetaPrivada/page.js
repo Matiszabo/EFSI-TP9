@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import styles from "@/app/Components/CarpetaPrivada/CarpetaPrivada.module.css";
 
 export default function PrivateRoute({ children }) {
@@ -8,26 +8,23 @@ export default function PrivateRoute({ children }) {
   const pathname = usePathname();  
   const [isAuthenticated, setIsAuthenticated] = useState(false);  
 
-  const protectedRoutes = ['/Home', '/DetalleEvento'];
+  const protectedRoutes = ["/Home", "/DetalleEvento"];
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
+    console.log('token',token)
     if (token) {
       setIsAuthenticated(true); 
     } else {
       setIsAuthenticated(false); 
+      if (protectedRoutes.some(route => pathname.startsWith(route))) {
+        router.push("/LoginForm"); 
+      }
     }
-  }, []);  
+  }, [pathname, router]);  
 
-  useEffect(() => {
-    if (!isAuthenticated && protectedRoutes.some(route => pathname.startsWith(route))) {
-      router.push('/');  
-    }
-  }, [isAuthenticated, pathname, router]);
-
-  if (!isAuthenticated) {
-    return <div className={styles.loading}>Cargando...</div>;
+  if (!isAuthenticated && protectedRoutes.some(route => pathname.startsWith(route))) {
+    return <div className={styles.loading}>Cargando...</div>;  
   }
 
   return children;  
